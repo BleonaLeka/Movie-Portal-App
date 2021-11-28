@@ -5,6 +5,8 @@ import { FaSearch } from "react-icons/fa";
 import {Route, Switch} from 'react-router-dom';
 import AboutComponent from '../../About/AboutComponent';
 import ProfileComponent from '../../Profile/ProfileComponent';
+import PopUp from "../../PopUp/PopUpComponent"; 
+
 import MOVIES  from '../../../test/movies';
 class SearchComponent extends Component {
 
@@ -13,7 +15,11 @@ class SearchComponent extends Component {
     this.state = {
       searchText: "",
       // Object to store data taken from fetch request.
-      movieList: MOVIES.data
+      movieList: MOVIES.data,
+      favoriteList: [],
+      watchLaterList: [],
+      displayPopUp: false,
+      messageOnPopUp: ''
     };
 
     console.log("00: ", MOVIES);
@@ -57,6 +63,56 @@ class SearchComponent extends Component {
       alert("Warning")
   }
 
+  // toggle when close 
+  togglePop = () => {
+    this.setState({
+     displayPopUp: false
+    });
+   };
+
+  // method to append movie to watch list 
+  
+  saveToFavoriteList(item){
+    // Check if movie is set to list 
+    if(this.state.favoriteList.includes(item)){
+      console.log(`'${item.title}' movie is on your List`);
+      this.setState({
+        displayPopUp: true,
+        messageOnPopUp: `'${item.title}' movie is on your favorite List`
+      })
+
+    } else {
+      console.log("Movie to save: ", item);
+      var list  = []
+      list = this.state.favoriteList;
+      list.push(item)
+      this.setState({
+        favoriteList: list
+      })
+    }
+    
+  }
+
+  saveToWatchLaterList(item){
+    // Check if movie is set to list 
+    if(this.state.watchLaterList.includes(item)){
+      console.log(`'${item.title}' movie is on your List`);
+      this.setState({
+        displayPopUp: true,
+        messageOnPopUp: `'${item.title}' movie is on your watch Later List`
+      })
+
+    } else{
+      console.log("Movie to watch later: ", item);
+      var list  = []
+      list = this.state.watchLaterList;
+      list.push(item)
+      this.setState({
+        watchLaterList: list
+      })
+    }
+   
+  }
   //other way to render some data
   renderData() {
     if (this.state.movieList.length > 0) {
@@ -68,6 +124,9 @@ class SearchComponent extends Component {
               <Card
                 key={item.id}
                 movieList={item}
+                saveMovie = { () => this.saveToFavoriteList(item)}
+                watchLaterMovie = { () => this.saveToWatchLaterList(item)}
+
               ></Card>
             )))}
           </div>
@@ -107,6 +166,9 @@ class SearchComponent extends Component {
             </span>
           </ul>
         </nav>
+
+        {this.state.displayPopUp ? <PopUp message={this.state.messageOnPopUp} toggle={this.togglePop} /> : null}
+
         <Switch>
           <Route path='/about' component={AboutComponent} />
           <Route path='/profile' component={ProfileComponent} />
