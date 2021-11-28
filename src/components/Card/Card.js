@@ -21,8 +21,8 @@ class Card extends Component {
       <div className="card-container">
 
           <div className="card card-item">
-            <h2 className="card__title">{this.props.wikiList.title}</h2>
-            <div className="card__extract" dangerouslySetInnerHTML={{__html: this.props.wikiList.snippet}}></div>
+            <h2 className="card__title">{this.props.movieList.title}</h2>
+            <div className="card__extract" > {this.props.movieList.description } </div>
           </div>
 
         </div>

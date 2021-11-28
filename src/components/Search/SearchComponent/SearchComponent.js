@@ -5,7 +5,7 @@ import { FaSearch } from "react-icons/fa";
 import {Route, Switch} from 'react-router-dom';
 import AboutComponent from '../../About/AboutComponent';
 import ProfileComponent from '../../Profile/ProfileComponent';
-
+import MOVIES  from '../../../test/movies';
 class SearchComponent extends Component {
 
   constructor(props) {
@@ -13,10 +13,13 @@ class SearchComponent extends Component {
     this.state = {
       searchText: "",
       // Object to store data taken from fetch request.
-      wikipediaList: [],
+      movieList: MOVIES.data
     };
+
+    console.log("00: ", MOVIES);
   }
 
+  //Mos e prek per momentin 
   requestHandler(search) {
     const WIKIPEDIA_API = `https://en.wikipedia.org/w/api.php?action=query&origin=*&list=search&srsearch=${search}&prop=info&inprop=url&utf8=&format=json&srlimit=5`;
     fetch(WIKIPEDIA_API)
@@ -56,15 +59,15 @@ class SearchComponent extends Component {
 
   //other way to render some data
   renderData() {
-    if (this.state.wikipediaList.length > 0) {
+    if (this.state.movieList.length > 0) {
       return (
         <div className="searchlist-container">
           <h1>We have found some results for you</h1>
           <div className="cards">
-            {this.state.wikipediaList.map(((item) => (
+            {this.state.movieList.map(((item) => (
               <Card
                 key={item.id}
-                wikiList={item}
+                movieList={item}
               ></Card>
             )))}
           </div>
