@@ -42,6 +42,13 @@
   .bleona{
     color: blue;
   }
+
+
+  .btn{
+    border:solid 1px grey;
+    border-radius: 12px;
+    padding: 0 2%;
+  }
   /* RESPONSIVE */
   
   @media (max-width: 1600px) {
