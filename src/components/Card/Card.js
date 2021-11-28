@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import './Card.css';
 
 class Card extends Component {
-  // constructor(props){
-  // super(props);
-  // this.state = {};
-  // }
+  constructor(props){
+  super(props);
+    this.state = {
+      userList: []
+    };
+  }
 
   // componentWillMount(){}
   // componentDidMount(){}
@@ -23,6 +25,10 @@ class Card extends Component {
           <div className="card card-item">
             <h2 className="card__title">{this.props.movieList.title}</h2>
             <div className="card__extract" > {this.props.movieList.description } </div>
+
+            <div className="btn save" onClick={this.props.saveMovie  }>Save</div>
+            <div className="btn watch-later" onClick={this.props.watchLaterMovie  }>Watch Later</div>
+
           </div>
 
         </div>
