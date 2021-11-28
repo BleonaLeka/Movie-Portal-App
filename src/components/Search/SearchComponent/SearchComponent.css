@@ -13,7 +13,7 @@
     flex-wrap: wrap;
     justify-content: center;
     overflow: scroll;
-    max-height: 500px;
+    max-height: 374px;
   }
 .cards::-webkit-scrollbar{
     visibility: hidden;

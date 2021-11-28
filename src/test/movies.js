@@ -29,8 +29,20 @@ const MOVIES = {
             "title": "Shofere e re",
             "description": "I bere fotot ti hahaha apo akoma ",
             "rate": 9.9
+        },
+        {
+            "id": 6,
+            "title": "Shoku Demka",
+            "description": "Mos fli gjume sot",
+            "rate": 9.9
+        },
+        {
+            "id": 7,
+            "title": "Stop TV",
+            "description": "Mos shiko TV se te ben dem",
+            "rate": 9.9
         }
-
+        
     ]
 }
 
