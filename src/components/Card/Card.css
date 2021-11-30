@@ -45,10 +45,17 @@
 
 
   .btn{
-    border:solid 1px grey;
+    border:solid 1px;
     border-radius: 12px;
-    padding: 0 2%;
+    padding: 1% 0%;
+    background: lightblue;
+    color: gray;
+    cursor: pointer;
+    width: 8rem;
+    margin-left: 72%;
+    margin-bottom: 1%;
   }
+  
   /* RESPONSIVE */
   
   @media (max-width: 1600px) {
