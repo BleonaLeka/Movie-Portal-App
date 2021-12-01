@@ -6,16 +6,19 @@ class ProfileComponent extends  Component {
 
     constructor(props) {
         super(props);
-        console.log("--: ", this.props.location.data);
-
-        if(localStorage.getItem('data')){
-            console.log("--;aa ", localStorage.getItem('data').length);
+        console.log("--: ", JSON.parse(this.props.location.data));
+        var latelyIncomingData = JSON.parse(this.props.location.data);
+        var data = [];
+        
+        if(localStorage.getItem('data').hasOwnProperty){
+            console.log("--;aa "  );
+            
         }
-        localStorage.setItem('data',this.props.location.data);
+        localStorage.setItem('data',JSON.parse(this.props.location.data));
         this.state = {
             
             // Object to store data taken from fetch request.
-            favoriteList: this.props.location.data,
+            favoriteList: JSON.parse(this.props.location.data),
             watchLaterList: [],
            
         }

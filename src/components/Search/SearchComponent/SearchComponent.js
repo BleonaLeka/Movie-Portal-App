@@ -203,7 +203,7 @@ class SearchComponent extends Component {
                 <Link to={{ 
                       pathname: `/profile`, 
                        
-                      data: JSON.parse(this.state.favoriteList)
+                      data: JSON.stringify(this.state.favoriteList)
                       
                     }}>  {this.props.username}  </Link>
                {/* <li className="profile"><a href="/profile"></a></li> */}
