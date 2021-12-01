@@ -1,29 +1,48 @@
 import { Component } from "react";
 import './ProfileComponent.css';
-import Card from '../Card/Card';
+import CardSave from '../CardSave/CardSave';
+import Helper from "../../Helper";
 
 class ProfileComponent extends  Component {
 
     constructor(props) {
         super(props);
-        console.log("--: ", JSON.parse(this.props.location.data));
-        var latelyIncomingData = JSON.parse(this.props.location.data);
-        var data = [];
+        // console.log("--: ", JSON.parse(this.props.location.data));
+        // var latelyIncomingData = JSON.parse(this.props.location.data);
+        // var data = [];
         
-        if(localStorage.getItem('data').hasOwnProperty){
-            console.log("--;aa "  );
-            
-        }
-        localStorage.setItem('data',JSON.parse(this.props.location.data));
+        // // if(localStorage.getItem('data').hasOwnProperty){
+        // //     console.log("--;aa "  );
+        // //     localStorage.removeItem('data');
+        // // }
+        // localStorage.myMap = localStorage.getItem('data');
+        // let map = new Map(JSON.parse(localStorage.myMap));
+        // console.log("map: ", map);
+        // localStorage.setItem('data',JSON.parse(this.props.location.data));
+        // console.log("---:localStorage: ", JSON.parse(JSON.stringify(localStorage.getItem('data'))));
         this.state = {
             
             // Object to store data taken from fetch request.
-            favoriteList: JSON.parse(this.props.location.data),
+            favoriteList: Helper.getMovieObject(),
             watchLaterList: [],
            
         }
     }
 
+
+    deleteFromFavoriteList(item){
+  
+      // Check if movie is set to list 
+      if(this.state.favoriteList.includes(item)){
+        console.log(`'${item.title}' movie is on your List`);
+        let list = this.state.favoriteList.map(movie => movie != item);
+        this.setState({
+          favoriteList: list
+        })
+  
+      } 
+      
+    }
     //other way to render some data
   renderData() {
     if (this.state.favoriteList.length > 0) {
@@ -32,13 +51,12 @@ class ProfileComponent extends  Component {
           <h1>We have found some results for you</h1>
           <div className="cards">
             {this.state.favoriteList.map(((item) => (
-              <Card
+              <CardSave
                 key={item.id}
                 movieList={item}
-                saveMovie = { () => this.saveToFavoriteList(item)}
-                watchLaterMovie = { () => this.saveToWatchLaterList(item)}
+                deleteMovie = { () => this.deleteFromFavoriteList(item)}
                 ref={this.child}
-              ></Card>
+              ></CardSave>
             )))}
           </div>
         </div>
@@ -52,7 +70,7 @@ class ProfileComponent extends  Component {
             <div className="container">
                 This is profle page
 
-                {this.renderData()}
+                {this.state.favoriteList.length > 0 ? this.renderData()  : null}
 
             </div>
         )

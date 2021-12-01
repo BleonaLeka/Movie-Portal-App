@@ -1,16 +1,17 @@
 export default class Helper{
 
 
-    static MovieObject = null
+    static MovieObject = [];
 
     constructor(){
-
     }
 
 
-    appendMovieObject(object){
-        object .forEach(element => {
-            
-        });
+    static appendMovieObject(object){
+        this.MovieObject.push(object);
+    }
+
+    static getMovieObject(){
+        return this.MovieObject;
     }
 }

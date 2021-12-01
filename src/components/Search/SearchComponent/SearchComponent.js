@@ -8,13 +8,14 @@ import ProfileComponent from '../../Profile/ProfileComponent';
 import PopUp from "../../PopUp/PopUpComponent"; 
 
 import MOVIES  from '../../../test/movies';
+import Helper from '../../../Helper';
 class SearchComponent extends Component {
 
   constructor(props) {
     super(props);
     this.child = React.createRef();
-
     this.state = {
+      
       searchText: "",
       // Object to store data taken from fetch request.
       movieList: MOVIES.data,
@@ -44,7 +45,6 @@ class SearchComponent extends Component {
       .then(response => response.json())
       .then(data => {
         if(data.results.length != 0){
-          console.log("---: ", data.results);
           this.setState({ movieList: data.results });
         }
         else {
@@ -108,7 +108,6 @@ class SearchComponent extends Component {
   
   saveToFavoriteList(item){
     this.child.current.changeSaveButtonToDisable();
-    
 
     // Check if movie is set to list 
     if(this.state.favoriteList.includes(item)){
@@ -120,6 +119,7 @@ class SearchComponent extends Component {
 
     } else {
       console.log("Movie to save: ", item);
+      Helper.appendMovieObject(item);
       var list  = []
       list = this.state.favoriteList;
       list.push(item)
@@ -181,8 +181,21 @@ class SearchComponent extends Component {
         <nav>
           <ul className="menuItems">
             <span> 
-              <li><a className="active" href="/">Home</a></li>
-              <li><a href="/about">About</a></li>
+              
+              <li>
+              <Link to={{ 
+                      pathname: `/`, 
+                       
+                      data: Helper.getMovieObject()
+                      
+                    }}> Home </Link>
+                <a className="active"></a></li>
+              <li>
+              <Link to={{ 
+                      pathname: `/about`, 
+                        
+                    }}> ABOUT </Link>
+                </li>
               <li>
                   <form onSubmit= {this.onSearch.bind(this)}>
                     <input
@@ -203,7 +216,7 @@ class SearchComponent extends Component {
                 <Link to={{ 
                       pathname: `/profile`, 
                        
-                      data: JSON.stringify(this.state.favoriteList)
+                      data: Helper.getMovieObject()
                       
                     }}>  {this.props.username}  </Link>
                {/* <li className="profile"><a href="/profile"></a></li> */}
