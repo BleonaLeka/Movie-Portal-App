@@ -3,12 +3,12 @@ import Card from '../../Card/Card';
 import './SearchComponent.css';
 import { FaSearch } from "react-icons/fa";
 import {Link, Route, Switch} from 'react-router-dom';
-import AboutComponent from '../../About/AboutComponent';
 import ProfileComponent from '../../Profile/ProfileComponent';
 import PopUp from "../../PopUp/PopUpComponent"; 
 
 import MOVIES  from '../../../test/movies';
 import Helper from '../../../Helper';
+import WatchLaterComponent from '../../WatchLater/WatchLaterComponent';
 class SearchComponent extends Component {
 
   constructor(props) {
@@ -19,8 +19,8 @@ class SearchComponent extends Component {
       searchText: "",
       // Object to store data taken from fetch request.
       movieList: MOVIES.data,
-      favoriteList: [],
-      watchLaterList: [],
+      favoriteList: Helper.getMovieObject(),
+      watchLaterList: Helper.getWatchLaterMovieObject(),
       displayPopUp: false,
       messageOnPopUp: '',
       MOVIEAPI: `https://api.themoviedb.org/3/movie/popular`,
@@ -120,11 +120,8 @@ class SearchComponent extends Component {
     } else {
       console.log("Movie to save: ", item);
       Helper.appendMovieObject(item);
-      var list  = []
-      list = this.state.favoriteList;
-      list.push(item)
       this.setState({
-        favoriteList: list
+        favoriteList: Helper.getMovieObject()
       })
     }
     
@@ -143,11 +140,9 @@ class SearchComponent extends Component {
 
     } else{
       console.log("Movie to watch later: ", item);
-      var list  = []
-      list = this.state.watchLaterList;
-      list.push(item)
+      Helper.appendWatchLaterObject(item);
       this.setState({
-        watchLaterList: list
+        watchLaterList: Helper.getWatchLaterMovieObject()
       })
     }
    
@@ -192,9 +187,9 @@ class SearchComponent extends Component {
                 <a className="active"></a></li>
               <li>
               <Link to={{ 
-                      pathname: `/about`, 
+                      pathname: `/watchlater`, 
                         
-                    }}> ABOUT </Link>
+                    }}> WatchLater </Link>
                 </li>
               <li>
                   <form onSubmit= {this.onSearch.bind(this)}>
@@ -227,7 +222,7 @@ class SearchComponent extends Component {
         {this.state.displayPopUp ? <PopUp message={this.state.messageOnPopUp} toggle={this.togglePop} /> : null}
 
         <Switch>
-          <Route path='/about' component={AboutComponent} />
+          <Route path='/watchlater' component={WatchLaterComponent} />
           <Route path='/profile' component={ProfileComponent} />
 
           {this.renderData()}

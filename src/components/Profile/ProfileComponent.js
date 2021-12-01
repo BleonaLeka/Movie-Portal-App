@@ -31,13 +31,12 @@ class ProfileComponent extends  Component {
 
 
     deleteFromFavoriteList(item){
-  
       // Check if movie is set to list 
-      if(this.state.favoriteList.includes(item)){
-        console.log(`'${item.title}' movie is on your List`);
-        let list = this.state.favoriteList.map(movie => movie != item);
+      if(Helper.getMovieObject().includes(item)){
+        console.log(`'${item.title}' movie is deleted`);
+        Helper.removeMovieObject(item);
         this.setState({
-          favoriteList: list
+          favoriteList: Helper.getMovieObject()
         })
   
       } 
@@ -45,19 +44,20 @@ class ProfileComponent extends  Component {
     }
     //other way to render some data
   renderData() {
-    if (this.state.favoriteList.length > 0) {
+    if (Helper.getMovieObject().length > 0) {
       return (
         <div className="searchlist-container">
           <h1>We have found some results for you</h1>
           <div className="cards">
-            {this.state.favoriteList.map(((item) => (
+            {Helper.getMovieObject().map(((item) => (
               <CardSave
                 key={item.id}
                 movieList={item}
                 deleteMovie = { () => this.deleteFromFavoriteList(item)}
                 ref={this.child}
               ></CardSave>
-            )))}
+            )))           
+             }
           </div>
         </div>
       )
@@ -70,7 +70,7 @@ class ProfileComponent extends  Component {
             <div className="container">
                 This is profle page
 
-                {this.state.favoriteList.length > 0 ? this.renderData()  : null}
+                {Helper.getMovieObject().length > 0 ? this.renderData()  : null}
 
             </div>
         )
