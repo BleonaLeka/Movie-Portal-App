@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Card from '../../Card/Card';
 import './SearchComponent.css';
 import { FaSearch } from "react-icons/fa";
-import {Route, Switch} from 'react-router-dom';
+import {Link, Route, Switch} from 'react-router-dom';
 import AboutComponent from '../../About/AboutComponent';
 import ProfileComponent from '../../Profile/ProfileComponent';
 import PopUp from "../../PopUp/PopUpComponent"; 
@@ -12,6 +12,8 @@ class SearchComponent extends Component {
 
   constructor(props) {
     super(props);
+    this.child = React.createRef();
+
     this.state = {
       searchText: "",
       // Object to store data taken from fetch request.
@@ -19,12 +21,44 @@ class SearchComponent extends Component {
       favoriteList: [],
       watchLaterList: [],
       displayPopUp: false,
-      messageOnPopUp: ''
+      messageOnPopUp: '',
+      MOVIEAPI: `https://api.themoviedb.org/3/movie/popular`,
+      API_KEY: 'd2b226dfd108f4906912a1dca70487b8', /// API to call for loading most popular movies 
+
     };
 
-    console.log("00: ", MOVIES);
   }
 
+
+  // This is called after every element is rendered 
+  /*
+    In this part we load our data from api
+  */
+  componentDidMount() {
+    this.fetchMovies();
+    // this.timer = setInterval(() => this.fetchUsers(), 5000);
+  }
+
+  fetchMovies = () => {
+    fetch(`${this.state.MOVIEAPI}?api_key=${this.state.API_KEY}`)
+      .then(response => response.json())
+      .then(data => {
+        if(data.results.length != 0){
+          console.log("---: ", data.results);
+          this.setState({ movieList: data.results });
+        }
+        else {
+          // EX: If search is inappropriate, tell user to search sth meaningful
+          alert("Search sth meaningful")
+        }
+      })
+      .catch((e) => {
+        //Display error in console if catches error
+        console.log(e);
+      });
+  }
+
+ 
   //Mos e prek per momentin 
   requestHandler(search) {
     const WIKIPEDIA_API = `https://en.wikipedia.org/w/api.php?action=query&origin=*&list=search&srsearch=${search}&prop=info&inprop=url&utf8=&format=json&srlimit=5`;
@@ -73,6 +107,9 @@ class SearchComponent extends Component {
   // method to append movie to watch list 
   
   saveToFavoriteList(item){
+    this.child.current.changeSaveButtonToDisable();
+    
+
     // Check if movie is set to list 
     if(this.state.favoriteList.includes(item)){
       console.log(`'${item.title}' movie is on your List`);
@@ -94,6 +131,8 @@ class SearchComponent extends Component {
   }
 
   saveToWatchLaterList(item){
+    this.child.current.changeSaveWatchLaterToDisable();
+
     // Check if movie is set to list 
     if(this.state.watchLaterList.includes(item)){
       console.log(`'${item.title}' movie is on your List`);
@@ -126,7 +165,7 @@ class SearchComponent extends Component {
                 movieList={item}
                 saveMovie = { () => this.saveToFavoriteList(item)}
                 watchLaterMovie = { () => this.saveToWatchLaterList(item)}
-
+                ref={this.child}
               ></Card>
             )))}
           </div>
@@ -135,7 +174,6 @@ class SearchComponent extends Component {
     }
 
   }
-
 
   render() {
     return (     
@@ -162,7 +200,13 @@ class SearchComponent extends Component {
                 <div>
                   <img src="avatar.png" alt="Avatar" className="avatar"/>
                 </div>
-               <li className="profile"><a href="/profile">{this.props.username}</a></li>
+                <Link to={{ 
+                      pathname: `/profile`, 
+                       
+                      data: JSON.parse(this.state.favoriteList)
+                      
+                    }}>  {this.props.username}  </Link>
+               {/* <li className="profile"><a href="/profile"></a></li> */}
             </span>
           </ul>
         </nav>
