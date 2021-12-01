@@ -3,9 +3,14 @@ import './Card.css';
 
 class Card extends Component {
   constructor(props){
+
   super(props);
+  this.count =  0;
+
     this.state = {
-      userList: []
+      userList: [],
+      isFavouriteClicked: false,
+      isWatchLaterClicked: false
     };
   }
 
@@ -18,16 +23,31 @@ class Card extends Component {
   // componentWillUpdate(){}
   // componentDidUpdate(){}
 
+  changeSaveButtonToDisable = (item) => {
+    this.setState({
+      isFavouriteClicked: true
+    })
+
+    console.log("---: ", this.state.isFavouriteClicked);
+  }
+
+  changeSaveWatchLaterToDisable(item) {
+    this.setState({
+      isWatchLaterClicked: true
+    })
+  }
   render() {
     return (
       <div className="card-container">
 
           <div className="card card-item">
             <h2 className="card__title">{this.props.movieList.title}</h2>
-            <div className="card__extract" > {this.props.movieList.description } </div>
+            <div className="card__extract" > {this.props.movieList.overview } </div>
 
-            <div className="btn save" onClick={this.props.saveMovie  }>Save</div>
-            <div className="btn watch-later" onClick={this.props.watchLaterMovie  }>Watch Later</div>
+            <div className="card__extract" > {this.props.movieList.overview } </div>
+
+            <div  className={this.state.isFavouriteClicked ? 'disable' : 'btn save' } onClick={() => this.props.saveMovie()  }>Save { this.count }</div>
+            <div  className={this.state.isWatchLaterClicked ? 'disable' : 'btn watch-later' } onClick={this.props.watchLaterMovie  }>Watch Later</div>
 
           </div>
 
