@@ -46,7 +46,7 @@ class Card extends Component {
 
             <div className="card__extract" > {this.props.movieList.overview } </div>
 
-            <div  className={this.state.isFavouriteClicked ? 'disable' : 'btn save' } onClick={() => this.props.saveMovie()  }>Save { this.count }</div>
+            <div  className={this.state.isFavouriteClicked ? 'disable' : 'btn save' } onClick={() => this.props.saveMovie()  }>Save </div>
             <div  className={this.state.isWatchLaterClicked ? 'disable' : 'btn watch-later' } onClick={this.props.watchLaterMovie  }>Watch Later</div>
 
           </div>

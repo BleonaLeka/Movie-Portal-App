@@ -189,7 +189,7 @@ class SearchComponent extends Component {
               <Link to={{ 
                       pathname: `/watchlater`, 
                         
-                    }}> WatchLater </Link>
+                    }}> Watch Later </Link>
                 </li>
               <li>
                   <form onSubmit= {this.onSearch.bind(this)}>

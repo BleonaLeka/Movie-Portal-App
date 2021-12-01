@@ -48,8 +48,8 @@
     border:solid 1px;
     border-radius: 12px;
     padding: 1% 0%;
-    background: lightblue;
-    color: gray;
+    background: darkcyan;
+    color: beige;
     cursor: pointer;
     width: 8rem;
     margin-left: 72%;
@@ -57,10 +57,10 @@
   }
   
   .delete{
-    background-color: red;
+    background-color: darkcyan;
   }
   .disable{
-    color:red;
+    color:darkcyan;
     display: none;
   }
   /* RESPONSIVE */
