@@ -55,8 +55,8 @@ class WatchLaterComponent extends  Component {
     render(){
         return(
             <div className="container">
-                This is profle page
 
+              This is Watch Later List
                 {Helper.getWatchLaterMovieObject().length > 0 ? this.renderData()  : null}
 
             </div>
