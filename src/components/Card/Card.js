@@ -37,7 +37,7 @@ class Card extends Component {
   }
   render() {
     return (
-      <div className="card-container">
+      <div>
 
           <div className="card card-item">
             <h2 className="card__title">{this.props.movieList.title ? this.props.movieList.title : this.props.movieList.name}</h2>

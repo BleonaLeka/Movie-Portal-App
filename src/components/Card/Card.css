@@ -4,11 +4,6 @@
 
   /* CARDS */
 
-  .card-container{
-    display: flex;
-
-    
-  }
   .card {
     margin: 20px;
     width: 60%;
