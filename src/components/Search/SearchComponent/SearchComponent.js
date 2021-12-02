@@ -1,3 +1,12 @@
+/*
+
+  API_KEY is genereated from themoviedb. After signup with an account we get a token so we can use it as apikey 
+
+*/
+
+
+
+
 import React, { Component } from 'react';
 import Card from '../../Card/Card';
 import './SearchComponent.css';
@@ -45,6 +54,9 @@ class SearchComponent extends Component {
     this.fetchMovies();
   }
 
+  /**
+   * In this method we fetch data from API. we get all data from the request and set it to our state element movieList;
+   */
   fetchMovies = () => {
     fetch(`${this.state.MOVIEAPI}?api_key=${this.state.API_KEY}`)
       .then(response => response.json())
@@ -54,7 +66,7 @@ class SearchComponent extends Component {
         }
         else {
           // EX: If search is inappropriate, tell user to search sth meaningful
-          alert("Search sth meaningful")
+          alert("0 Results found! ")
         }
       })
       .catch((e) => {
@@ -63,7 +75,10 @@ class SearchComponent extends Component {
       });
   }
 
-
+/*
+  When search and press enter we make our request to another api endpoint to get data from the string we entered on search field.
+  Our parameters to api request is passed through queryString: EX (&query='stringfromsearchfield')
+*/
   requestHandler(search) {
     const SEARCH_API = `${this.state.SEARCHMOVIEAPI}?api_key=${this.state.API_KEY}&language=en-US&page=1&query=${search}`;
     fetch(SEARCH_API)
@@ -82,12 +97,13 @@ class SearchComponent extends Component {
       });
   }
 
+  // Everytime we write a character to the search form field this method get called and change our searchText
   handleSearchInputChange = (e) => {
     this.setState({ searchText: e.target.value })
 
   }
 
-
+// Make call of search api and fetch data to movieList
   onSearch(e) {
     e.preventDefault();
     if (this.state.searchText) {
@@ -98,7 +114,7 @@ class SearchComponent extends Component {
 
   }
 
-  // toggle when close 
+  // toggle when close for popup 
   togglePop = () => {
     this.setState({
       displayPopUp: false
@@ -106,18 +122,16 @@ class SearchComponent extends Component {
   };
 
   // method to append movie to watch list 
-
   saveToFavoriteList(item) {
     this.child.current.changeSaveButtonToDisable();
 
-    // Check if movie is set to list 
+    // Check if movie is set to list before
     if (Helper.getMovieObject().includes(item)) {
       console.log(`'${item.title}' movie is on your List`);
       this.setState({
         displayPopUp: true,
         messageOnPopUp: `'${item.title}' movie is on your favorite List`
       })
-
     } else {
       console.log("Movie to save: ", item);
       Helper.appendMovieObject(item);
@@ -155,17 +169,21 @@ class SearchComponent extends Component {
       isResponsive: !this.state.isResponsive
     })
   }
-  //other way to render some data
+  //other way to render some data 
+  /*
+    Everytime the length of the list is not 0 we return all cards with their properties
+  */
   renderData() {
     if (this.state.movieList.length > 0) {
       return (
         <div className="searchlist-container">
           <div className="cards">
+            {/* iterate through list of movies using map, its the same as for loop */}
             {this.state.movieList.map(((item) => (
               <Card
                 key={item.id}
                 movieList={item}
-                saveMovie={() => this.saveToFavoriteList(item)}
+                saveMovie={() => this.saveToFavoriteList(item)} // the way we call parent methods from its child compoment
                 watchLaterMovie={() => this.saveToWatchLaterList(item)}
                 ref={this.child}
               ></Card>
@@ -177,6 +195,7 @@ class SearchComponent extends Component {
 
   }
 
+  // We use Link to so when we want to redirect to another page we dont have to reload the window but make it a single page compenent. we just switch which compoenent to render
   render() {
     return (
       <div className="search-field-container">
@@ -189,7 +208,6 @@ class SearchComponent extends Component {
 
             }}> Home </Link>
           </a>
-
 
           <a >
             <Link to={{
