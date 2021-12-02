@@ -176,7 +176,7 @@ class SearchComponent extends Component {
   renderData() {
     if (this.state.movieList.length > 0) {
       return (
-          <div className="cards">
+          <div className="cards-container">
             {/* iterate through list of movies using map, its the same as for loop */}
             {this.state.movieList.map(((item) => (
               <Card

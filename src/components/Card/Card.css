@@ -48,11 +48,9 @@
     border:solid 1px;
     border-radius: 12px;
     padding: 1% 0%;
-    background: darkcyan;
+    background: rgb(7, 165, 165);
     color: beige;
     cursor: pointer;
-    width: 8rem;
-    margin-left: 72%;
     margin-bottom: 1%;
   }
 
@@ -73,7 +71,7 @@
 
   @media (max-width: 900px) {
     
-      .card-item {
+      /* .card-item {
         margin: 20px;
         width: 90%;
         display: flex;
@@ -83,6 +81,6 @@
         transition: all 0.2s;
         font-family: cursive;
         font-style: oblique;
-      }
+      } */
   }
 

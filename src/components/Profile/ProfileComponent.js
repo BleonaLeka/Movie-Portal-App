@@ -2,12 +2,14 @@ import { Component } from "react";
 import './ProfileComponent.css';
 import CardSave from '../CardSave/CardSave';
 import Helper from "../../Helper";
+import { Redirect } from "react-router-dom";
+import { Link, Route, Switch } from 'react-router-dom';
 
 class ProfileComponent extends  Component {
 
     constructor(props) {
         super(props);
-        
+
         this.state = {
             
             // Object to store data taken from fetch request.
@@ -17,6 +19,11 @@ class ProfileComponent extends  Component {
         }
     }
 
+    componentDidMount(){
+      /*
+       todo
+      */
+    }
 
     deleteFromFavoriteList(item){
       // Check if movie is set to list 
@@ -35,7 +42,6 @@ class ProfileComponent extends  Component {
     if (Helper.getMovieObject().length > 0) {
       return (
         <div className="searchlist-container">
-          <h1>We have found some results for you</h1>
           <div className="cards">
             {Helper.getMovieObject().map(((item) => (
               <CardSave

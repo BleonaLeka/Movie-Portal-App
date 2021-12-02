@@ -34,7 +34,6 @@ class WatchLaterComponent extends  Component {
     if (Helper.getWatchLaterMovieObject().length > 0) {
       return (
         <div className="searchlist-container">
-          <h1>We have found some results for you</h1>
           <div className="cards">
             {Helper.getWatchLaterMovieObject().map(((item) => (
               <CardSave
