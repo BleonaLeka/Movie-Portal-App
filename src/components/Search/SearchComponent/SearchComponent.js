@@ -111,7 +111,7 @@ class SearchComponent extends Component {
     this.child.current.changeSaveButtonToDisable();
 
     // Check if movie is set to list 
-    if (this.state.favoriteList.includes(item)) {
+    if (Helper.getMovieObject().includes(item)) {
       console.log(`'${item.title}' movie is on your List`);
       this.setState({
         displayPopUp: true,
